@@ -13,7 +13,7 @@ def ok():
     password=e2.get()
     if(uname==""and password==""):
         messagebox.showinfo("","Blank Not Allowed")
-    elif(uname=="Admin"and password=="123"):
+    elif(uname=="employee"and password=="employee"):
         messagebox.showinfo("","Login Success")
         root.withdraw()
         os.system("whatlol.py")
