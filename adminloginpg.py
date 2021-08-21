@@ -3,7 +3,9 @@ from tkinter import messagebox
 from PIL import Image,ImageTk
 import os
 root=Tk()
-root.geometry("1366x768")
+root.geometry("1366x768+60+10")
+root.resizable(0, 0)
+
 
 global e1
 global e2
