@@ -1,6 +1,7 @@
 from tkinter import *
 from PIL import Image,ImageTk
 import os
+import addemployee
 
 
 root=Tk()
@@ -9,7 +10,7 @@ root.title("Login")
 root.resizable(0, 0)
 
 
-myimage=ImageTk.PhotoImage(Image.open('empmanagement.png'))
+myimage=ImageTk.PhotoImage(Image.open('./images/empmanagement.png'))
 Label(image=myimage).pack()
 id_lbl=Label(root,text="Employee ID",font=('Consolas',13),bg="white")
 id_lbl.place(x=120,y=200)
