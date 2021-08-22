@@ -6,6 +6,7 @@ import os
 # from tkinter import ttk
 
 
+
 def insert():
     # database
     con = sqlite3.connect("EmployeeInfo.db")
@@ -52,6 +53,8 @@ def add():
     global address
 
     # desgin
+    root.geometry("1366x768+60+10")
+    root.resizable(0, 0)
     fullname_lbl = Label(root, text="Full Name", font=('Consolas', 15), bg="white")
     fullname_lbl.place(x=180, y=200)
     department_lbl = Label(root, text="Department", font=('Consolas', 15), bg="white")
