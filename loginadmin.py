@@ -18,7 +18,7 @@ def ok():
     elif(uname=="admin"and password=="admin"):
         messagebox.showinfo("","Login Success")
         root.withdraw()
-        os.system("adminmanagement.py")
+        os.system("admin.py")
 
 
     else:

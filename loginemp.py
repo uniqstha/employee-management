@@ -18,7 +18,7 @@ def ok():
     elif(uname=="employee"and password=="employee"):
         messagebox.showinfo("","Login Success")
         root.withdraw()
-        os.system("empmanagement.py")
+        os.system("employee.py")
         root.deiconify()
 
 

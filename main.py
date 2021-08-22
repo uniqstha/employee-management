@@ -22,11 +22,11 @@ root.protocol("WM_DELETE_WINDOW", Exit)
 
 def emp_login():
     root.withdraw()
-    os.system("emploginpg.py")
+    os.system("loginemp.py")
     root.deiconify()
 def admin_login():
     root.withdraw()
-    os.system("adminloginpg.py")
+    os.system("loginadmin.py")
     root.deiconify()
 
 

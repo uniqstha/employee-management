@@ -128,7 +128,7 @@ Label(image=myimage).pack()
 
 # label
 id_lbl=Label(root,text="Employee ID",font=('Consolas',13),bg="white")
-id_lbl.place(x=120,y=200)
+id_lbl.place(x=120,y=190)
 option_lbl=Label(root,text="Employee Option",font=('Consolas',13),bg="white")
 option_lbl.place(x=155,y=290)
 
