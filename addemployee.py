@@ -2,6 +2,7 @@ import sqlite3
 from tkinter import *
 from tkinter import messagebox
 from PIL import Image,ImageTk
+import os
 # from tkinter import ttk
 
 
@@ -22,6 +23,7 @@ def insert():
     con.commit()
     con.close()
     root.destroy()
+    os.system(('employee.py'))
 
 def clear():
     fullname.delete(0,END)
@@ -79,7 +81,7 @@ def add():
                      bg="#00bff3", border=0, activebackground="#00bff3", padx=25, pady=10,command=insert)
     add_btn.place(x=560, y=630)
     clear_btn = Button(root, text="CLEAR", font=('Consolas', 15), cursor='hand2',
-                       bg="#00bff3", border=0, activebackground="#00bff3", padx=25, pady=10)
+                       bg="#00bff3", border=0, activebackground="#00bff3", padx=25, pady=10,command=clear)
     clear_btn.place(x=715, y=630)
 
 
