@@ -57,24 +57,24 @@ root.resizable(0, 0)
 
 
 # # creating database
-con = sqlite3.connect("EmployeeInfo.db")
-cur = con.cursor()
+conn = sqlite3.connect("EmployeeInfo.db")
+c = conn.cursor()
+'''
+c.execute("""CREATE TABLE employees(
 
-# cur.execute("""CREATE TABLE employees(
-#
-#         UserName text,
-#
-#         FirstName text,
-#
-#         LastName text,
-#
-#         Address text,
-#
-#        Age integer
-#
-#
-#
-#  )""")
+        FullName text,
+
+        Department text,
+
+        Age text,
+
+        Gender text,
+
+       Contact integer,
+         Address text
+
+ )""")
+ '''
 
 # function
 # ------------------------------------------
@@ -83,24 +83,25 @@ cur = con.cursor()
 def search():
     # my_tree.delete(0, END)
     my_tree.delete(*my_tree.get_children())
-    con = sqlite3.connect("EmployeeInfo.db")
-    cur = con.cursor()
+    conn = sqlite3.connect("EmployeeInfo.db")
+    c = conn.cursor()
     record_id = employeeID.get()
-    cur.execute("SELECT  rowid, * FROM employees WHERE UserName = ?", (record_id,))
-    rows = cur.fetchall()
+    c.execute("SELECT *,oid FROM employees WHERE FullName = ?", (record_id,))
+    records= c.fetchall()
     # for data in rows.get_children():
+    print(records)
 
-    for data in rows:
-        my_tree.insert('', 'end', values=(data))
+    for record in records:
+        my_tree.insert('', 'end', values=(record))
 
 
-    con.commit()
-    con.close()
+    conn.commit()
+    conn.close()
     # pass
 
 def logout():
     root.withdraw()
-    os.system("front_page.py")
+    os.system("main.py")
 
 def adding():
     addemployee.add()
@@ -169,36 +170,40 @@ scrollbarx = Scrollbar(root, orient=HORIZONTAL)
 scrollbary = Scrollbar(root, orient=VERTICAL)
 
 # tree
+
+c.execute('SELECT * ,oid from employees')
+records = c.fetchall()
 my_tree = ttk.Treeview(root)
-my_tree['columns'] = ("UserName", "First Name", "Last Name", "Address", "Age")
+my_tree['columns'] = ("FullName", "Department", "Age","Gender", "Contact","Address")
 
-# my_tree.column("#0", width = 120, minwidth = 25)
-my_tree.column("#0", stretch=NO, minwidth=0, width=0)
-my_tree.column("#1", stretch=NO, minwidth=0, width=80)
-my_tree.column("#2", stretch=NO, minwidth=0, width=260)
-my_tree.column("#3", stretch=NO, minwidth=0, width=100)
-my_tree.column("#4", stretch=NO, minwidth=0, width=198)
-my_tree.column("#5", stretch=NO, minwidth=0, width=80)
+my_tree.column("#0", width =0, stretch=NO)
+my_tree.column("FullName", anchor=W,width=150)
+my_tree.column("Department", anchor=W,width=120)
+my_tree.column("Age", anchor=W,width=40)
+my_tree.column("Gender", anchor=W,width=90)
+my_tree.column("Contact", anchor=W,width=100)
+my_tree.column("Address", anchor=W,width=100)
 
-# my_tree.heading("#0", text = "", anchor = W)
-my_tree.heading("UserName", text = "Username", anchor = W)
-my_tree.heading("First Name", text = "First name", anchor = W)
-my_tree.heading("Last Name", text = "Last name", anchor = W)
-my_tree.heading("Address", text = "Address", anchor = W)
+my_tree.heading("#0", text = "", anchor = W)
+my_tree.heading("FullName", text = "FullName", anchor = W)
+my_tree.heading("Department", text = "Department", anchor = W)
 my_tree.heading("Age", text = "Age", anchor = W)
+my_tree.heading("Gender", text = "Gender", anchor = W)
+my_tree.heading("Contact", text = "Contact", anchor = W)
+my_tree.heading("Address",text = "Address", anchor = W)
 
 my_tree.place(relx=0.307, rely=0.203, width=880, height=550)
 my_tree.configure(yscrollcommand= scrollbary.set, xscrollcommand = scrollbarx.set)
-
 # Scrollbar
 scrollbarx.configure(command=my_tree.xview)
 scrollbary.configure(command=my_tree.yview)
-
 scrollbary.place(relx=0.954, rely=0.203, width=22, height=548)
 scrollbarx.place(relx=0.307, rely=0.924, width=884, height=22)
-cur.execute("SELECT * FROM employees")
-fetch = cur.fetchall()
-for data in fetch:
-    my_tree.insert("", "end", values=(data))
 
+count=0
+for record in records:
+    my_tree.insert(parent='',index='end',iid=count,text="Parent",values=(record[0],record[1],record[2],record[3],record[4],record[5]))
+    count+=1
+conn.commit()
+conn.close()
 root.mainloop()
