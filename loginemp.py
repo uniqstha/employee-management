@@ -3,8 +3,10 @@ from tkinter import messagebox
 from PIL import Image,ImageTk
 import os
 root=Tk()
+root.title("Employee Login")
 root.geometry("1366x768+60+10")
 root.resizable(0, 0)
+root.iconbitmap('./images/2.ico')
 
 
 global e1
@@ -28,7 +30,7 @@ def ok():
 
 
 
-root.title("Login")
+
 myimage=ImageTk.PhotoImage(Image.open('./images/login.png'))
 Label(image=myimage).pack()
 #e1 entry for username entry

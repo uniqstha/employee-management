@@ -5,8 +5,9 @@ from tkinter import messagebox
 root = Tk()
 root.lift()
 root.geometry("1366x768+60+10")
-root.title("LOGIN")
+root.title("Employee Management System")
 root.resizable(0, 0)
+root.iconbitmap('./images/1.ico')
 
 
 
@@ -24,6 +25,7 @@ def emp_login():
     root.withdraw()
     os.system("loginemp.py")
     root.deiconify()
+
 def admin_login():
     root.withdraw()
     os.system("loginadmin.py")

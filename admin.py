@@ -8,10 +8,12 @@ from tkinter import ttk
 
 
 
+
 root=Tk()
 root.geometry("1366x768+60+10")
 root.title("Login")
 root.resizable(0, 0)
+root.iconbitmap('./images/3.ico')
 
 
 
@@ -58,7 +60,7 @@ def save():
     conn.close()
     employeeID.delete(0,END)
     main.destroy()
-    os.system("employee.py")
+    os.system("admin.py")
 
 
 
@@ -106,17 +108,17 @@ def update():
     address_lbl = Label(main, text="Address", font=('Consolas', 15), bg="white")
     address_lbl.place(x=720, y=380)
 
-    fullname = Entry(main, width=25, border=0, font=('Consolas', 15))
+    fullname = Entry(main, width=40, border=0, font=('Consolas', 15))
     fullname.place(x=180, y=230)
-    department = Entry(main, width=25, border=0, font=('Consolas', 15))
+    department = Entry(main, width=40, border=0, font=('Consolas', 15))
     department.place(x=720, y=230)
-    age = Entry(main, width=25, border=0, font=('Consolas', 15))
+    age = Entry(main, width=40, border=0, font=('Consolas', 15))
     age.place(x=180, y=320)
-    gender = Entry(main, width=25, border=0, font=('Consolas', 15))
+    gender = Entry(main, width=40, border=0, font=('Consolas', 15))
     gender.place(x=720, y=320)
-    contact = Entry(main, width=25, border=0, font=('Consolas', 15))
+    contact = Entry(main, width=40, border=0, font=('Consolas', 15))
     contact.place(x=180, y=410)
-    address = Entry(main, width=25, border=0, font=('Consolas', 15))
+    address = Entry(main, width=40, border=0, font=('Consolas', 15))
     address.place(x=720, y=410)
     for record in records:
         fullname.insert(0, record[0])
@@ -140,13 +142,16 @@ def delete():
         global main1
         global myimg
         main1 = Toplevel()
-        main1.geometry("400x200+500+300")
-        main1.title("Login")
+        main1.geometry("400x150+500+300")
+        main1.title("Prompt")
         main1.resizable(0, 0)
-        main1.configure(bg='white')
+        main1.iconbitmap('./images/3.ico')
 
-        Label(main1, text="Do you want to delete Employee?", bg="white", font=('Consolas', 15)).place(x=10, y=10)
-        Button(main1, text='CONFIRM', font=('Consolas', 15), command=confirm).place(x=150, y=150)
+        myimg = ImageTk.PhotoImage(Image.open('./images/delete.png'))
+        Label(main1, image=myimg).pack()
+        Label(main1, text="Do you want to delete Employee?", bg="white", font=('Consolas', 15)).place(x=30, y=40)
+        Button(main1, text='CONFIRM', font=('Consolas', 13),padx=20,cursor="hand2",bg="#687afd", border=0, activebackground="#687afd",
+               command=confirm).place(x=145, y=94)
 
 
 def confirm():
@@ -271,22 +276,22 @@ my_tree = ttk.Treeview(root)
 my_tree['columns'] = ("Sno.","FullName", "Department", "Age","Gender", "Contact","Address")
 
 my_tree.column("#0", width =0, stretch=NO)
-my_tree.column("Sno.", anchor=W,width=150)
-my_tree.column("FullName", anchor=W,width=150)
-my_tree.column("Department", anchor=W,width=120)
-my_tree.column("Age", anchor=W,width=40)
-my_tree.column("Gender", anchor=W,width=90)
-my_tree.column("Contact", anchor=W,width=100)
-my_tree.column("Address", anchor=W,width=100)
+my_tree.column("Sno.", anchor=CENTER,width=30)
+my_tree.column("FullName", anchor=CENTER,width=150)
+my_tree.column("Department", anchor=CENTER,width=120)
+my_tree.column("Age", anchor=CENTER,width=40)
+my_tree.column("Gender", anchor=CENTER,width=90)
+my_tree.column("Contact", anchor=CENTER,width=100)
+my_tree.column("Address", anchor=CENTER,width=100)
 
-my_tree.heading("#0", text = "", anchor = W)
-my_tree.heading("Sno.", text = "Sno", anchor = W)
-my_tree.heading("FullName", text = "FullName", anchor = W)
-my_tree.heading("Department", text = "Department", anchor = W)
-my_tree.heading("Age", text = "Age", anchor = W)
-my_tree.heading("Gender", text = "Gender", anchor = W)
-my_tree.heading("Contact", text = "Contact", anchor = W)
-my_tree.heading("Address",text = "Address", anchor = W)
+my_tree.heading("#0", text = "", anchor = CENTER)
+my_tree.heading("Sno.", text = "Sno", anchor = CENTER)
+my_tree.heading("FullName", text = "FullName", anchor = CENTER)
+my_tree.heading("Department", text = "Department", anchor = CENTER)
+my_tree.heading("Age", text = "Age", anchor = CENTER)
+my_tree.heading("Gender", text = "Gender", anchor = CENTER)
+my_tree.heading("Contact", text = "Contact", anchor = CENTER)
+my_tree.heading("Address",text = "Address", anchor = CENTER)
 
 my_tree.place(relx=0.307, rely=0.203, width=880, height=550)
 my_tree.configure(yscrollcommand= scrollbary.set, xscrollcommand = scrollbarx.set)

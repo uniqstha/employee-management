@@ -19,7 +19,7 @@ def insert():
         'Contact': contact.get(),
         'Address': address.get()
     })
-    messagebox.showinfo("Employee", "Inserted Sucessfully")
+    messagebox.showinfo("Employee", "Employee Added Sucessfully !")
 
     con.commit()
     con.close()
@@ -55,6 +55,8 @@ def add():
     # desgin
     root.geometry("1366x768+60+10")
     root.resizable(0, 0)
+    root.iconbitmap('./images/3.ico')
+
     fullname_lbl = Label(root, text="Full Name", font=('Consolas', 15), bg="white")
     fullname_lbl.place(x=180, y=200)
     department_lbl = Label(root, text="Department", font=('Consolas', 15), bg="white")
@@ -68,17 +70,17 @@ def add():
     address_lbl = Label(root, text="Address", font=('Consolas', 15), bg="white")
     address_lbl.place(x=720, y=380)
 
-    fullname = Entry(root, width=25, border=0, font=('Consolas', 15))
+    fullname = Entry(root, width=40, border=0, font=('Consolas', 15))
     fullname.place(x=180, y=230)
-    department = Entry(root, width=25, border=0, font=('Consolas', 15))
+    department = Entry(root, width=40, border=0, font=('Consolas', 15))
     department.place(x=720, y=230)
-    age = Entry(root, width=25, border=0, font=('Consolas', 15))
+    age = Entry(root, width=40, border=0, font=('Consolas', 15))
     age.place(x=180, y=320)
-    gender = Entry(root, width=25, border=0, font=('Consolas', 15))
+    gender = Entry(root, width=40, border=0, font=('Consolas', 15))
     gender.place(x=720, y=320)
-    contact = Entry(root, width=25, border=0, font=('Consolas', 15))
+    contact = Entry(root, width=40, border=0, font=('Consolas', 15))
     contact.place(x=180, y=410)
-    address = Entry(root, width=25, border=0, font=('Consolas', 15))
+    address = Entry(root, width=40, border=0, font=('Consolas', 15))
     address.place(x=720, y=410)
     add_btn = Button(root, text="ADD", font=('Consolas', 15), cursor='hand2',
                      bg="#00bff3", border=0, activebackground="#00bff3", padx=25, pady=10,command=insert)
