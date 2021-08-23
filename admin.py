@@ -133,17 +133,21 @@ def update():
     clear_btn.place(x=715, y=630)
 
 def delete():
-    root.withdraw()
-    global main1
-    global myimg
-    main1 = Toplevel()
-    main1.geometry("400x200+500+300")
-    main1.title("Login")
-    main1.resizable(0, 0)
-    main1.configure(bg='white')
+    if (employeeID.get()==""):
+        messagebox.showinfo("Error","Please select employee")
+    else:
+        root.withdraw()
+        global main1
+        global myimg
+        main1 = Toplevel()
+        main1.geometry("400x200+500+300")
+        main1.title("Login")
+        main1.resizable(0, 0)
+        main1.configure(bg='white')
 
-    Label(main1,text="Do you want to delete Employee?",bg="white",font=('Consolas', 15)).place(x=10,y=10)
-    Button(main1,text='CONFIRM',font=('Consolas', 15),command=confirm).place(x=150,y=150)
+        Label(main1, text="Do you want to delete Employee?", bg="white", font=('Consolas', 15)).place(x=10, y=10)
+        Button(main1, text='CONFIRM', font=('Consolas', 15), command=confirm).place(x=150, y=150)
+
 
 def confirm():
     global main1
@@ -163,23 +167,22 @@ def confirm():
 
 
 def search():
-    # my_tree.delete(0, END)
-    my_tree.delete(*my_tree.get_children())
+    record_id = employeeID.get()
+    for record in my_tree.get_children():
+        my_tree.delete(record)
+
     conn = sqlite3.connect("EmployeeInfo.db")
     c = conn.cursor()
-    record_id = employeeID.get()
-    c.execute("SELECT *,oid FROM employees WHERE FullName = ?", (record_id,))
-    records= c.fetchall()
-    # for data in rows.get_children():
-    print(records)
+
+    c.execute("SELECT rowid, * FROM employees WHERE FullName = ?", (record_id,))
+    records = c.fetchall()
 
     for record in records:
         my_tree.insert('', 'end', values=(record))
 
-
     conn.commit()
     conn.close()
-    # pass
+
 
 def logout():
     root.withdraw()
@@ -191,6 +194,9 @@ def adding():
     addemployee.add()
 
 
+def refresh():
+    root.destroy()
+    os.system('admin.py')
 
 
 
@@ -208,7 +214,7 @@ def Exit():
 # -------------------------------------
 
 # image
-myimage=ImageTk.PhotoImage(Image.open('./images/adminmanagement.png'))
+myimage=ImageTk.PhotoImage(Image.open('./images/adminmanagement1.png'))
 Label(image=myimage).pack()
 
 # label
@@ -245,9 +251,9 @@ deleteBTN=Button(root,text="DELETE EMPLOYEE",font=('Consolas',13),cursor='hand2'
 deleteBTN.place(x=65,y=432)
 
 
-# delete_btn=Button(root,text="DELETE EMPLOYEE",font=('Consolas',13),cursor='hand2',
-#                   bg="#00bff3",border=0,activebackground="#00bff3",padx=85)
-# delete_btn.place(x=65,y=435)
+refreshBTN=Button(root,text="Refresh",font=('Consolas',13),cursor='hand2',
+                  bg="#00bff3",border=0,activebackground="#00bff3", command = refresh)
+refreshBTN.place(x=313,y=178)
 
 exitBTN =Button(root,text="EXIT",font=('Consolas',13),cursor='hand2',
                   bg="#00bff3",border=0,activebackground="#00bff3",padx=16,command = exit)

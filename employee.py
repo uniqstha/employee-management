@@ -135,24 +135,42 @@ def update():
 
 
 
+# def search():
+#     # my_tree.delete(0, END)
+#     my_tree.delete(*my_tree.get_children())
+#     conn = sqlite3.connect("EmployeeInfo.db")
+#     c = conn.cursor()
+#     record_id = employeeID.get()
+#     c.execute("SELECT *,oid FROM employees WHERE FullName = ?", (record_id,))
+#     records= c.fetchall()
+#     # for data in rows.get_children():
+#     print(records)
+#
+#     for record in records:
+#         my_tree.insert('', 'end', values=(record))
+#
+#
+#     conn.commit()
+#     conn.close()
+    # pass
 def search():
-    # my_tree.delete(0, END)
-    my_tree.delete(*my_tree.get_children())
+    record_id = employeeID.get()
+    for record in my_tree.get_children():
+        my_tree.delete(record)
+
     conn = sqlite3.connect("EmployeeInfo.db")
     c = conn.cursor()
-    record_id = employeeID.get()
-    c.execute("SELECT *,oid FROM employees WHERE FullName = ?", (record_id,))
-    records= c.fetchall()
-    # for data in rows.get_children():
-    print(records)
+
+    c.execute("SELECT rowid, * FROM employees WHERE FullName = ?", (record_id,))
+    records = c.fetchall()
 
     for record in records:
         my_tree.insert('', 'end', values=(record))
 
-
     conn.commit()
     conn.close()
-    # pass
+
+
 
 def logout():
     root.withdraw()
@@ -163,7 +181,9 @@ def adding():
 
     addemployee.add()
 
-
+def refresh():
+    root.destroy()
+    os.system('employee.py')
 
 
 
@@ -181,7 +201,7 @@ def Exit():
 # -------------------------------------
 
 # image
-myimage=ImageTk.PhotoImage(Image.open('./images/empmanagement.png'))
+myimage=ImageTk.PhotoImage(Image.open('./images/empmanagement1.png'))
 Label(image=myimage).pack()
 
 # label
@@ -213,6 +233,9 @@ addEmpBTN.place(x=75,y=330)
 updateBTN=Button(root,text="UPDATE EMPLOYEE",font=('Consolas',13),cursor='hand2',
                   bg="#00bff3",border=0,activebackground="#00bff3",padx=85, command = update)
 updateBTN.place(x=65,y=380)
+refreshBTN=Button(root,text="Refresh",font=('Consolas',13),cursor='hand2',
+                  bg="#00bff3",border=0,activebackground="#00bff3", command = refresh)
+refreshBTN.place(x=313,y=178)
 
 
 
