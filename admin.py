@@ -3,7 +3,7 @@ from PIL import Image,ImageTk
 import os
 import sqlite3
 from tkinter import messagebox
-import addemployee
+import addadmin
 from tkinter import ttk
 
 
@@ -139,34 +139,17 @@ def delete():
         messagebox.showinfo("Error","Please select employee")
     else:
         root.withdraw()
-        global main1
-        global myimg
-        main1 = Toplevel()
-        main1.geometry("400x150+500+300")
-        main1.title("Prompt")
-        main1.resizable(0, 0)
-        main1.iconbitmap('./images/3.ico')
+        conn = sqlite3.connect('EmployeeInfo.db')
+        c = conn.cursor()
+        c.execute('DELETE from employees WHERE oid= ' + employeeID.get())
+        print("Deleted successfully")
 
-        myimg = ImageTk.PhotoImage(Image.open('./images/delete.png'))
-        Label(main1, image=myimg).pack()
-        Label(main1, text="Do you want to delete Employee?", bg="white", font=('Consolas', 15)).place(x=30, y=40)
-        Button(main1, text='CONFIRM', font=('Consolas', 13),padx=20,cursor="hand2",bg="#687afd", border=0, activebackground="#687afd",
-               command=confirm).place(x=145, y=94)
+        conn.commit()
+        conn.close()
+        employeeID.delete(0, END)
+        # main1.destroy()
+        os.system("admin.py")
 
-
-def confirm():
-    global main1
-
-    conn = sqlite3.connect('EmployeeInfo.db')
-    c = conn.cursor()
-    c.execute('DELETE from employees WHERE oid= ' + employeeID.get())
-    print("Deleted successfully")
-
-    conn.commit()
-    conn.close()
-    employeeID.delete(0, END)
-    main1.destroy()
-    os.system("admin.py")
 
 
 
@@ -196,7 +179,7 @@ def logout():
 def adding():
     root.withdraw()
 
-    addemployee.add()
+    addadmin.add()
 
 
 def refresh():
